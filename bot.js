@@ -8,10 +8,10 @@ function respond() {
     var rosterRegex = /^\/roster ([a-z]{2,3})$/;
     //dlRegex = /^\/dl$/;
 
-    if (request.text && scheduleRegex.test(request.text)) {        
+    if (request.text && scheduleRegex.test(request.text)) {
         var prom = new Promise(function(resolve, reject) {
             var schTeam = scheduleRegex.exec(request.text);
-            resolve rosterTeam;
+            resolve schTeam;
         })
         prom.then(response, error) {
             var url = "http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + response + "/roster";
