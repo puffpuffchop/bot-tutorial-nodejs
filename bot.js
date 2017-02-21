@@ -6,7 +6,7 @@ function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       scheduleRegex = /^\/sch ([a-z]{2,3})$/;
       rosterRegex = /^\/roster ([a-z]{2,3})$/;
-      dlRegex = /^\/dl$/;
+      //dlRegex = /^\/dl$/;
 
   if(request.text && scheduleRegex.test(request.text)) {
     var team = scheduleRegex.exec(request.text);
@@ -21,12 +21,13 @@ function respond() {
     postResponse(url);
     this.res.end();
   }
-  else if(request.text && dlRegex.test(request.text)){
+  //already have bot doing requests to /dl
+  /*else if(request.text && dlRegex.test(request.text)){
     var url = `http://daddyleagues.com/${process.env.LEAGUE_NAME}/`
     this.res.writeHead(200);
     postResponse(url);
     this.res.end();
-  }
+  }*/
   else {
     console.log("don't care");
     this.res.writeHead(200);
