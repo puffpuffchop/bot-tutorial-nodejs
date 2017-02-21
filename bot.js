@@ -10,13 +10,13 @@ function respond() {
 
   if(request.text && scheduleRegex.test(request.text)) {
     var team = scheduleRegex.exec(request.text);
-    var url = "http://daddyleagues.com/"+process.env.LEAGUE_NAME+"/team/"+team"/schedule";
+    var url = "http://daddyleagues.com/"+process.env.LEAGUE_NAME+"/team/"+team+"/schedule";
     this.res.writeHead(200);
     postResponse(url);
     this.res.end();
   } else if(request.text && rosterRegex.test(request.text)){
     var team = rosterRegex.exec(request.text);
-    var url = "http://daddyleagues.com/"+process.env.LEAGUE_NAME+"/team/"+team"/roster";
+    var url = "http://daddyleagues.com/"+process.env.LEAGUE_NAME+"/team/"+team+"/roster";
     this.res.writeHead(200);
     postResponse(url);
     this.res.end();
