@@ -35,7 +35,7 @@ function respond() {
   }
 }
 
-function postSchedule(url) {
+function postResponse(url) {
   var botResponse, options, body, botReq;
 
   botResponse = url;
