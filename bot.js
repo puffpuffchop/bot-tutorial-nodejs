@@ -8,16 +8,29 @@ function respond() {
     var rosterRegex = /^\/roster ([a-z]{2,3})$/;
     //dlRegex = /^\/dl$/;
 
-    if (request.text && scheduleRegex.test(request.text)) {
-        //var schTeam = scheduleRegex.exec(request.text);
-        this.res.writeHead(200);
-        postResponse("http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + scheduleRegex.exec(request.text) + "/schedule");
-        this.res.end();
+    if (request.text && scheduleRegex.test(request.text)) {        
+        var prom = new Promise(function(resolve, reject) {
+            var schTeam = scheduleRegex.exec(request.text);
+            resolve rosterTeam;
+        })
+        prom.then(response, error) {
+            var url = "http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + response + "/roster";
+            this.res.writeHead(200);
+            postResponse(url);
+            this.res.end();
+        }
     } else if (request.text && rosterRegex.test(request.text)) {
-        //var rosterTeam = rosterRegex.exec(request.text);
-        this.res.writeHead(200);
-        postResponse("http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + rosterRegex.exec(request.text) + "/roster");
-        this.res.end();
+        var prom = new Promise(function(resolve, reject) {
+            var rosterTeam = rosterRegex.exec(request.text);
+            resolve rosterTeam;
+        })
+        prom.then(response, error) {
+            var url = "http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + response + "/roster";
+            this.res.writeHead(200);
+            postResponse(url);
+            this.res.end();
+        }
+
     }
     //already have bot doing requests to /dl
     /*else if(request.text && dlRegex.test(request.text)){
@@ -33,7 +46,7 @@ function respond() {
     }
 }
 
-function postResponse(url) {
+function postResponse(team, route) {
     var botResponse, options, body, botReq;
 
     botResponse = url;
