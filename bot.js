@@ -1,27 +1,43 @@
 var HTTPS = require('https');
-var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /^\/cool guy$/;
+      scheduleRegex = /^\/sch ([a-z]{2,3})$/;
+      rosterRegex = /^\/roster ([a-z]{2,3})$/;
+      dlRegex = /^\/dl$/;
 
-  if(request.text && botRegex.test(request.text)) {
+  if(request.text && scheduleRegex.test(request.text)) {
+    var team = scheduleRegex.exec(request.text);
+    var url = `http://daddyleagues.com/${process.env.LEAGUE_NAME}/team/${team}/schedule`
     this.res.writeHead(200);
-    postMessage();
+    postResponse(url);
     this.res.end();
-  } else {
+  } else if(request.text && rosterRegex.test(request.text)){
+    var team = rosterRegex.exec(request.text);
+    var url = `http://daddyleagues.com/${process.env.LEAGUE_NAME}/team/${team}/roster`
+    this.res.writeHead(200);
+    postResponse(url);
+    this.res.end();
+  }
+  else if(request.text && dlRegex.test(request.text)){
+    var url = `http://daddyleagues.com/${process.env.LEAGUE_NAME}/`
+    this.res.writeHead(200);
+    postResponse(url);
+    this.res.end();
+  }
+  else {
     console.log("don't care");
     this.res.writeHead(200);
     this.res.end();
   }
 }
 
-function postMessage() {
+function postSchedule(url) {
   var botResponse, options, body, botReq;
 
-  botResponse = cool();
+  botResponse = url;
 
   options = {
     hostname: 'api.groupme.com',
