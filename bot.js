@@ -9,12 +9,12 @@ function respond() {
     //dlRegex = /^\/dl$/;
 
     if (request.text && scheduleRegex.test(request.text)) {
-        var team = (request.text).match(scheduleRegex);
+        var team[1] = (request.text).match(scheduleRegex);
         this.res.writeHead(200);
         postResponse('schedule', team);
         this.res.end();
     } else if (request.text && rosterRegex.test(request.text)) {
-        var team = (request.text).match(rosterRegex);
+        var team[1] = (request.text).match(rosterRegex);
         this.res.writeHead(200);
         postResponse('roster', team);
         this.res.end();
