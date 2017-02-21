@@ -9,22 +9,22 @@ function respond() {
     //dlRegex = /^\/dl$/;
 
     if (request.text && scheduleRegex.test(request.text)) {
-        var prom = new Promise(function(resolve, reject) {
+        var prom1 = new Promise(function(resolve, reject) {
             var schTeam = scheduleRegex.exec(request.text);
-            resolve schTeam;
+            resolve(schTeam);
         })
-        prom.then(response, error) {
+        prom1.then(response, error) {
             var url = "http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + response + "/roster";
             this.res.writeHead(200);
             postResponse(url);
             this.res.end();
         }
     } else if (request.text && rosterRegex.test(request.text)) {
-        var prom = new Promise(function(resolve, reject) {
+        var prom2 = new Promise(function(resolve, reject) {
             var rosterTeam = rosterRegex.exec(request.text);
-            resolve rosterTeam;
+            resolve(rosterTeam);
         })
-        prom.then(response, error) {
+        prom2.then(response, error) {
             var url = "http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + response + "/roster";
             this.res.writeHead(200);
             postResponse(url);
