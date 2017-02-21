@@ -9,14 +9,14 @@ function respond() {
     //dlRegex = /^\/dl$/;
 
     if (request.text && scheduleRegex.test(request.text)) {
-        var schTeam = scheduleRegex.exec(request.text);
+        //var schTeam = scheduleRegex.exec(request.text);
         this.res.writeHead(200);
-        postResponse("http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + schTeam + "/schedule");
+        postResponse("http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + scheduleRegex.exec(request.text) + "/schedule");
         this.res.end();
     } else if (request.text && rosterRegex.test(request.text)) {
-        var rosterTeam = rosterRegex.exec(request.text);        
+        //var rosterTeam = rosterRegex.exec(request.text);
         this.res.writeHead(200);
-        postResponse("http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + rosterTeam + "/roster");
+        postResponse("http://daddyleagues.com/" + process.env.LEAGUE_NAME + "/team/" + rosterRegex.exec(request.text) + "/roster");
         this.res.end();
     }
     //already have bot doing requests to /dl
